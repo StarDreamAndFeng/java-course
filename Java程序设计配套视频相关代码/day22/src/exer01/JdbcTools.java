@@ -10,7 +10,7 @@ import java.util.Properties;
 import org.junit.Test;
 
 /**
- * JDBC¹¤¾ßÀà£º 1.Á¬½ÓÊı¾İ¿â 2.ÊÍ·ÅÁ¬½Ó
+ * JDBCå·¥å…·ç±»ï¼š 1.è¿æ¥æ•°æ®åº“ 2.é‡Šæ”¾è¿æ¥
  * 
  * @author star-dream
  *
@@ -18,56 +18,56 @@ import org.junit.Test;
 public class JdbcTools {
 
 	/**
-	 * »ñÈ¡Êı¾İ¿âÁ¬½Ó
+	 * è·å–æ•°æ®åº“è¿æ¥
 	 * 
-	 * @return ·µ»ØÒ»¸öÊı¾İ¿âÁ¬½Ó Connection
+	 * @return è¿”å›ä¸€ä¸ªæ•°æ®åº“è¿æ¥ Connection
 	 * @throws Exception
 	 */
 	private static Connection getConnection() throws Exception {
 
-		// ×¼±¸Á¬½ÓÊı¾İ¿âµÄ4¸ö×Ö·û´®
+		// å‡†å¤‡è¿æ¥æ•°æ®åº“çš„4ä¸ªå­—ç¬¦ä¸²
 		String driver = null;
 		String jdbcUrl = null;
 		String jdbcUser = null;
 		String jdbcPassword = null;
 
-		// ´´½¨ÊäÈëÁ÷µÄ¶ÔÏó
+		// åˆ›å»ºè¾“å…¥æµçš„å¯¹è±¡
 		InputStream inputStream = JdbcTools.class.getClassLoader().getResourceAsStream("exer01//jdbc.properties");
 
-		// ´´½¨PropertiesµÄ¶ÔÏó
+		// åˆ›å»ºPropertiesçš„å¯¹è±¡
 		Properties properties = new Properties();
 
-		// ¼ÓÔØpropertiesÅäÖÃÎÄ¼şµ½³ÌĞòÖĞ
+		// åŠ è½½propertiesé…ç½®æ–‡ä»¶åˆ°ç¨‹åºä¸­
 		properties.load(inputStream);
 
-		// »ñÈ¡ÎÄ¼şÖĞµÄÊı¾İ
+		// è·å–æ–‡ä»¶ä¸­çš„æ•°æ®
 		driver = properties.getProperty("driver");
 		jdbcUrl = properties.getProperty("jdbcURL");
 		jdbcUser = properties.getProperty("user");
 		jdbcPassword = properties.getProperty("password");
 
-		// »ñÈ¡Êı¾İ¿âÇı¶¯³ÌĞò
+		// è·å–æ•°æ®åº“é©±åŠ¨ç¨‹åº
 		Class.forName(driver);
 
-		// ½øĞĞÁ¬½Ó
+		// è¿›è¡Œè¿æ¥
 		Connection conn = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
 
-		// ·µ»ØÁ¬½Ó
+		// è¿”å›è¿æ¥
 		return conn;
 	}
 
 	/**
-	 * ÊÍ·ÅÁ¬½Ó[²»°üÀ¨²éÑ¯]
+	 * é‡Šæ”¾è¿æ¥[ä¸åŒ…æ‹¬æŸ¥è¯¢]
 	 * 
-	 * @param connection »ñÈ¡µÄÁ¬½Ó
+	 * @param connection è·å–çš„è¿æ¥
 	 * @param statement
 	 */
 	private static void release(Connection connection, Statement statement) {
 
-		// ÅĞ¶ÏÁ¬½ÓÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­è¿æ¥æ˜¯å¦ä¸ºç©º
 		if (statement != null) {
 
-			// ÎªÁË±£Ö¤Á¬½Ó±ØĞë¹Ø±Õ,Ê¹ÓÃÒì³£´¦Àí£¬·ÀÖ¹ÒòÎªstatement¹Ø±Õ³öÏÖÒì³£,connectionÎ´ÄÜ¹»¹Ø±Õ
+			// ä¸ºäº†ä¿è¯è¿æ¥å¿…é¡»å…³é—­,ä½¿ç”¨å¼‚å¸¸å¤„ç†ï¼Œé˜²æ­¢å› ä¸ºstatementå…³é—­å‡ºç°å¼‚å¸¸,connectionæœªèƒ½å¤Ÿå…³é—­
 			try {
 				statement.close();
 			} catch (Exception e) {
@@ -85,16 +85,16 @@ public class JdbcTools {
 	}
 	
 	/**
-	 * ÊÍ·ÅÁ¬½Ó¡¾°üÀ¨²éÑ¯¡¿
+	 * é‡Šæ”¾è¿æ¥ã€åŒ…æ‹¬æŸ¥è¯¢ã€‘
 	 * 
-	 * @param connection »ñÈ¡µÄÁ¬½Ó
+	 * @param connection è·å–çš„è¿æ¥
 	 * @param statement
-	 * @param resultSet     ½á¹û¼¯
+	 * @param resultSet     ç»“æœé›†
 	 */
 	private static void release(Connection connection, Statement statement,ResultSet resultSet) {
 		
 		
-		//ÅĞ¶Ï½á¹û¼¯ÊÇ·ñÎªnull
+		//åˆ¤æ–­ç»“æœé›†æ˜¯å¦ä¸ºnull
 		if(resultSet != null) {
 			try {
 				resultSet.close();
@@ -103,10 +103,10 @@ public class JdbcTools {
 			}
 		}
 
-		// ÅĞ¶ÏÁ¬½ÓÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­è¿æ¥æ˜¯å¦ä¸ºç©º
 		if (statement != null) {
 
-			// ÎªÁË±£Ö¤Á¬½Ó±ØĞë¹Ø±Õ,Ê¹ÓÃÒì³£´¦Àí£¬·ÀÖ¹ÒòÎªstatement¹Ø±Õ³öÏÖÒì³£,connectionÎ´ÄÜ¹»¹Ø±Õ
+			// ä¸ºäº†ä¿è¯è¿æ¥å¿…é¡»å…³é—­,ä½¿ç”¨å¼‚å¸¸å¤„ç†ï¼Œé˜²æ­¢å› ä¸ºstatementå…³é—­å‡ºç°å¼‚å¸¸,connectionæœªèƒ½å¤Ÿå…³é—­
 			try {
 				statement.close();
 			} catch (Exception e) {
@@ -124,137 +124,137 @@ public class JdbcTools {
 	}
 
 	/**
-	 * ĞŞ¸ÄÊı¾İ¿â INSERT UPDATE DELETE
+	 * ä¿®æ”¹æ•°æ®åº“ INSERT UPDATE DELETE
 	 * 
-	 * @param sql ´«ÈëÒ»¸öSQLÓï¾ä
+	 * @param sql ä¼ å…¥ä¸€ä¸ªSQLè¯­å¥
 	 */
 	private static void update(String sql) {
 
-		// »ñÈ¡Êı¾İ¿âÁ¬½Ó
+		// è·å–æ•°æ®åº“è¿æ¥
 		Connection conn = null;
 		Statement statement = null;
 
 		try {
 
-			// »ñÈ¡Á¬½Ó
+			// è·å–è¿æ¥
 			conn = getConnection();
 			statement = conn.createStatement();
 
-			// Ö´ĞĞSQLÓï¾ä
+			// æ‰§è¡ŒSQLè¯­å¥
 			statement.executeUpdate(sql);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 
-			// ÊÍ·ÅÁ¬½Ó
+			// é‡Šæ”¾è¿æ¥
 			release(conn, statement);
 		}
 	}
 	
 	/**
-	 * ²åÈëÊı¾İ¡¾¸ù¾İ²»Í¬µÄÊı¾İ¿â£¬Ğ´²»Í¬µÄ²åÈë·½·¨¡¿
-	 * @param id                Ë®¹ûµÄid
-	 * @param name          Ë®¹ûµÄÃû³Æ
-	 * @param price           Ë®¹ûµÄ¼Û¸ñ
-	 * @param number      Ë®¹ûµÄ¿â´æÊıÁ¿
+	 * æ’å…¥æ•°æ®ã€æ ¹æ®ä¸åŒçš„æ•°æ®åº“ï¼Œå†™ä¸åŒçš„æ’å…¥æ–¹æ³•ã€‘
+	 * @param id                æ°´æœçš„id
+	 * @param name          æ°´æœçš„åç§°
+	 * @param price           æ°´æœçš„ä»·æ ¼
+	 * @param number      æ°´æœçš„åº“å­˜æ•°é‡
 	 */
 	public static void insert(int id,String name,float price,int number){
 		
 		String sql = null;
 		
-		//INSERT INTO fruits VALUES(1,'Æ»¹û',7.8,50); [·ÂÔì¸ñÊ½]
-		//Ğ´³öSQLÓï¾ä
+		//INSERT INTO fruits VALUES(1,'è‹¹æœ',7.8,50); [ä»¿é€ æ ¼å¼]
+		//å†™å‡ºSQLè¯­å¥
 		sql = "INSERT INTO fruits VALUES(" + id +",\'" +
 		name + "\'," + price + "," + number+");";
 		
-		//Ö´ĞĞ²Ù×÷
+		//æ‰§è¡Œæ“ä½œ
 		update(sql);
 	}
 	
 	/**
-	 * ĞŞ¸ÄË®¹û±íµÄID
-	 * @param id ¸ÃË®¹ûµÄidºÅ
-	 * @param which_fruit Ö¸Ã÷ÒªĞŞ¸ÄµÄÊÇÄÄÒ»¸öË®¹û
+	 * ä¿®æ”¹æ°´æœè¡¨çš„ID
+	 * @param id è¯¥æ°´æœçš„idå·
+	 * @param which_fruit æŒ‡æ˜è¦ä¿®æ”¹çš„æ˜¯å“ªä¸€ä¸ªæ°´æœ
 	 */
 	public static void changeId(int id,String which_fruit) {
 		
 		String sql = null;
 		
-		//UPDATE fruits SET id = 101 WHERE name = 'Æ»¹û';
+		//UPDATE fruits SET id = 101 WHERE name = 'è‹¹æœ';
 		sql = "UPDATE fruits SET id = " + id + " WHERE name = " + "\'" + which_fruit +"\';";
 		
 		update(sql);
 	}
 	
 	/**
-	 * ĞŞ¸ÄË®¹û±íµÄ¼Û¸ñ
-	 * @param price ¸ÃË®¹ûµÄ¼Û¸ñ
-	 * @param which_fruit Ö¸Ã÷ÒªĞŞ¸ÄµÄÊÇÄÄÒ»¸öË®¹û
+	 * ä¿®æ”¹æ°´æœè¡¨çš„ä»·æ ¼
+	 * @param price è¯¥æ°´æœçš„ä»·æ ¼
+	 * @param which_fruit æŒ‡æ˜è¦ä¿®æ”¹çš„æ˜¯å“ªä¸€ä¸ªæ°´æœ
 	 */
 	public static void changePrice(float price,String which_fruit) {
 		
 		String sql = null;
 		
-		//UPDATE fruits SET id = 101 WHERE name = 'Æ»¹û';
+		//UPDATE fruits SET id = 101 WHERE name = 'è‹¹æœ';
 		sql = "UPDATE fruits SET price = " + price + " WHERE name = " + "\'" + which_fruit +"\';";
 		
 		update(sql);
 	}
 	
 	/**
-	 * ĞŞ¸ÄË®¹û±íµÄ¿â´æ
-	 * @param number ĞŞ¸Ä¸ÃË®¹ûµÄÊıÁ¿
-	 * @param which_fruit Ö¸Ã÷ÒªĞŞ¸ÄµÄÊÇÄÄÒ»¸öË®¹û
+	 * ä¿®æ”¹æ°´æœè¡¨çš„åº“å­˜
+	 * @param number ä¿®æ”¹è¯¥æ°´æœçš„æ•°é‡
+	 * @param which_fruit æŒ‡æ˜è¦ä¿®æ”¹çš„æ˜¯å“ªä¸€ä¸ªæ°´æœ
 	 */
 	public static void changeNumber(int number,String which_fruit) {
 		
 		String sql = null;
 		
-		//UPDATE fruits SET id = 101 WHERE name = 'Æ»¹û';
+		//UPDATE fruits SET id = 101 WHERE name = 'è‹¹æœ';
 		sql = "UPDATE fruits SET number = " + number + " WHERE name = " + "\'" + which_fruit +"\';";
 		
 		update(sql);
 	}
 	
 	/**
-	 * É¾³ıË®¹û±íÖĞµÄÊı¾İ
-	 * @param which_fruit ÒªÉ¾³ıÄÄÒ»¸öË®¹û
+	 * åˆ é™¤æ°´æœè¡¨ä¸­çš„æ•°æ®
+	 * @param which_fruit è¦åˆ é™¤å“ªä¸€ä¸ªæ°´æœ
 	 */
 	public static void delete(String which_fruit) {
 		
 		String sql = null;
 		
-		//DELETE FROM fruits WHERE name = 'Æ»¹û';
+		//DELETE FROM fruits WHERE name = 'è‹¹æœ';
 		sql = "DELETE FROM fruits WHERE name = " + "\'" + which_fruit +"\';";
 		
 		update(sql);
 	}
 	
 	/**
-	 * ¶ÔË®¹û±í½øĞĞ²éÑ¯
+	 * å¯¹æ°´æœè¡¨è¿›è¡ŒæŸ¥è¯¢
 	 */
 	public static void query() {
 		
 		Connection connection = null;
 		Statement statement = null;
-		ResultSet resultSet = null;//½á¹û¼¯£ºÓÃÀ´½ÓÊÜ²éÑ¯µ½µÄÊı¾İ
+		ResultSet resultSet = null;//ç»“æœé›†ï¼šç”¨æ¥æ¥å—æŸ¥è¯¢åˆ°çš„æ•°æ®
 		
 		try {
 			
-			//1.»ñÈ¡Á¬½Ó
+			//1.è·å–è¿æ¥
 			connection = getConnection();
 			
-			//2.»ñÈ¡Statement
+			//2.è·å–Statement
 			statement = connection.createStatement();
 			
-			//3.»ñÈ¡SQLÓï¾ä
+			//3.è·å–SQLè¯­å¥
 			String sql = "SELECT * FROM fruits;";
 			
-			//4.Ö´ĞĞ²éÑ¯,²¢½«½á¹û(ÕûÕÅÊı¾İ±í)·µ»Ø¸øresultSet½øĞĞ±£´æ
+			//4.æ‰§è¡ŒæŸ¥è¯¢,å¹¶å°†ç»“æœ(æ•´å¼ æ•°æ®è¡¨)è¿”å›ç»™resultSetè¿›è¡Œä¿å­˜
 			resultSet =  statement.executeQuery(sql);
 			
-			//5.ÔÚ¿ØÖÆÌ¨ÉÏ´òÓ¡Êä³ö
+			//5.åœ¨æ§åˆ¶å°ä¸Šæ‰“å°è¾“å‡º
 			while(resultSet.next()) {
 				
 				int id = resultSet.getInt("id");
@@ -262,51 +262,16 @@ public class JdbcTools {
 				float price = resultSet.getFloat("price");
 				int number = resultSet.getInt("number");
 							
-				System.out.println(id + "\t" + name + "\t" + String.format("%.2f",price) + "Ôª\t" + number + "¸ö");
+				System.out.println(id + "\t" + name + "\t" + String.format("%.2f",price) + "å…ƒ\t" + number + "ä¸ª");
 				
 			}
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			//6.ÊÍ·ÅÁ¬½Ó
+			//6.é‡Šæ”¾è¿æ¥
 			release(connection, statement, resultSet);
 		}		
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
